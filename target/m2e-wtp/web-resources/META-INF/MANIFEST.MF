@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: namam
+Build-Jdk: 14.0.2
+Implementation-Title: spring-boot-rest
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: com.devglan
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/spring-boot-rest
+Created-By: Maven Integration for Eclipse
+
