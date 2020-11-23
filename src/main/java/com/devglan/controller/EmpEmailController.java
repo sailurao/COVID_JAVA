@@ -35,10 +35,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/245678342/ighklsd")
-public class EmpInfoController {
+@RequestMapping("/employees/email")
+public class EmpEmailController {
 
 	private static final Logger logger = LoggerFactory.getLogger(EmpServiceImpl.class);
+	private Employee my_emp;
 	
     @Autowired
     private EmpService empService;
@@ -54,15 +55,16 @@ public class EmpInfoController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Employee> getOne(@PathVariable String id){
+    public ApiResponse<Employee> getOne(@PathVariable int id){
     	try {
+    	  my_emp = empService.findById(id);
     	sendmail();
     	logger.info("Email Sent Successfully1");
     	}
     	catch(Exception e) {
     		logger.info("Email Exception: {}",e);
     	}
-        return new ApiResponse<>(HttpStatus.OK.value(), "Employee fetched successfully.",empService.findOne(id));
+        return new ApiResponse<>(HttpStatus.OK.value(), "Employee fetched successfully.",my_emp);
     }
 
     @PutMapping("/{id}")
@@ -84,8 +86,6 @@ public class EmpInfoController {
     
     //https://www.tutorialspoint.com/spring_boot/spring_boot_sending_email.htm
     private void sendmail() throws AddressException, MessagingException, IOException {
-    	
-    	   return;
     	   Properties props = new Properties();
     	   props.put("mail.smtp.auth", "true");
     	   props.put("mail.smtp.starttls.enable", "true");
@@ -99,15 +99,19 @@ public class EmpInfoController {
     	      }
     	   });
     	   Message msg = new MimeMessage(session);
-    	   msg.setFrom(new InternetAddress("sailurao@yahoo.com", false));
+    	   msg.setFrom(new InternetAddress(my_emp.getEmail(), false));
 
-    	   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("sailurao@yahoo.com"));
-    	   msg.setSubject("Tutorials point email");
-    	   msg.setContent("Tutorials point email", "text/html");
+    	   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(my_emp.getEmail()));
+    	   msg.setSubject("PDI COVID Questionnaire Link");
+    	   String EMPLOYEE1_API_BASE_URL = " http://localhost:3000/new-tr/"; //used to fetch single employee record by user id
+
+    	   String body_msg = "Please clik on the link";
+    	   body_msg +=  EMPLOYEE1_API_BASE_URL+ my_emp.getUserid();
+    	   msg.setContent(body_msg, "text/html");
     	   msg.setSentDate(new Date());
 
     	   MimeBodyPart messageBodyPart = new MimeBodyPart();
-    	   messageBodyPart.setContent("Tutorials point email", "text/html");
+    	   messageBodyPart.setContent(body_msg, "text/html");
 
     	   Multipart multipart = new MimeMultipart();
     	   multipart.addBodyPart(messageBodyPart);
