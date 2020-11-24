@@ -84,8 +84,8 @@ public class EmpInfoController {
     
     //https://www.tutorialspoint.com/spring_boot/spring_boot_sending_email.htm
     private void sendmail() throws AddressException, MessagingException, IOException {
-    	
-    	   return;
+
+    	/*
     	   Properties props = new Properties();
     	   props.put("mail.smtp.auth", "true");
     	   props.put("mail.smtp.starttls.enable", "true");
@@ -118,6 +118,6 @@ public class EmpInfoController {
     	   msg.setContent(multipart);
     	   Transport.send(msg);   
     	   
-    	   logger.info("Email Sent succesfully2");
+    	   logger.info("Email Sent succesfully2");*/
     	}
 }
