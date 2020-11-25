@@ -95,6 +95,24 @@ public class EmpEmailController {
       	  InetAddress localhost = InetAddress.getLocalHost();
       	  String ip_str=(localhost.getHostAddress()).trim();
           logger.info("System Ip: "+ip_str);
+          
+          
+          // Find public IP address 
+          String systemipaddress = ""; 
+          try
+          { 
+              URL url_name = new URL("http://bot.whatismyipaddress.com"); 
+              BufferedReader sc = 
+              new BufferedReader(new InputStreamReader(url_name.openStream())); 
+              // reads system IPAddress 
+              systemipaddress = sc.readLine().trim(); 
+          } 
+          catch (Exception e) 
+          { 
+              systemipaddress = "Cannot Execute Properly"; 
+          } 
+          logger.info("Public IP Address: "+systemipaddress);
+          
     	
     	   Properties props = new Properties();
     	   props.put("mail.smtp.auth", "true");
