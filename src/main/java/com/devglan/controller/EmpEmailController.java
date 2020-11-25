@@ -103,8 +103,9 @@ public class EmpEmailController {
 
     	   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(my_emp.getEmail()));
     	   msg.setSubject("PDI COVID Questionnaire Link");
-    	   String EMPLOYEE1_API_BASE_URL = " http://localhost:3000/new-tr/"; //used to fetch single employee record by user id
+//    	   String EMPLOYEE1_API_BASE_URL = " http://localhost:3000/new-tr/"; //used to fetch single employee record by user id
 //    	   String EMPLOYEE1_API_BASE_URL = " http://192.168.0.200:3000/new-tr/"; //used to fetch single employee record by user id
+    	   String EMPLOYEE1_API_BASE_URL = " http://34.123.142.12:3000/new-tr/"; //used to fetch single employee record by user id
 
     	   String body_msg = "Please clik on the link";
     	   body_msg +=  EMPLOYEE1_API_BASE_URL+ my_emp.getUserid();
