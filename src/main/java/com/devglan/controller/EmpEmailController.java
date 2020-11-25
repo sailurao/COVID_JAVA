@@ -32,6 +32,10 @@ import javax.mail.internet.MimeMultipart;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.net.*; 
+import java.io.*; 
+import java.util.*; 
+import java.net.InetAddress;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -86,16 +90,26 @@ public class EmpEmailController {
     
     //https://www.tutorialspoint.com/spring_boot/spring_boot_sending_email.htm
     private void sendmail() throws AddressException, MessagingException, IOException {
+    	
+    	
+      	  InetAddress localhost = InetAddress.getLocalHost();
+      	  String ip_str=(localhost.getHostAddress()).trim();
+          logger.info("System Ip: "+ip_str);
+    	
     	   Properties props = new Properties();
     	   props.put("mail.smtp.auth", "true");
-    	   props.put("mail.smtp.starttls.enable", "true");
+    	   /*   	   props.put("mail.smtp.starttls.enable", "true");
     	   props.put("mail.smtp.host", "smtp.gmail.com");
-    	   props.put("mail.smtp.port", "587");
+    	   props.put("mail.smtp.port", "587"); */
+    	   
+    	    	   props.put("mail.smtp.starttls.enable", "false");
+    	   props.put("mail.smtp.host", "mail.teampdi.com");
+    	   props.put("mail.smtp.port", "25"); 
     	   
     	   Session session = Session.getInstance(props, new javax.mail.Authenticator() {
     	      protected PasswordAuthentication getPasswordAuthentication() {
-//     	         return new PasswordAuthentication("tutorialspoint@gmail.com", "<your password>");
-    	         return new PasswordAuthentication("naga1.pdi@gmail.com", "protodesign");
+     	         return new PasswordAuthentication("donot.reply001@teampdi.com", "Proto2020!!!!");
+ //   	         return new PasswordAuthentication("naga1.pdi@gmail.com", "protodesign");
     	      }
     	   });
     	   Message msg = new MimeMessage(session);
@@ -104,8 +118,9 @@ public class EmpEmailController {
     	   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(my_emp.getEmail()));
     	   msg.setSubject("PDI COVID Questionnaire Link");
 //    	   String EMPLOYEE1_API_BASE_URL = " http://localhost:3000/new-tr/"; //used to fetch single employee record by user id
-//    	   String EMPLOYEE1_API_BASE_URL = " http://192.168.0.200:3000/new-tr/"; //used to fetch single employee record by user id
-    	   String EMPLOYEE1_API_BASE_URL = " http://34.123.142.12:3000/new-tr/"; //used to fetch single employee record by user id
+ //   	   String EMPLOYEE1_API_BASE_URL = " http://192.168.0.200:3000/new-tr/"; //used to fetch single employee record by user id
+//   	   String EMPLOYEE1_API_BASE_URL = " http://34.123.142.12:3000/new-tr/"; //used to fetch single employee record by user id
+   	       String EMPLOYEE1_API_BASE_URL = " http://" + ip_str+":3000/new-tr/"; //used to fetch single employee record by user id
 
     	   String body_msg = "Please clik on the link";
     	   body_msg +=  EMPLOYEE1_API_BASE_URL+ my_emp.getUserid();
