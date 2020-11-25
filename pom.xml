@@ -9,38 +9,56 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.devglan</groupId>
-	<artifactId>spring-boot-rest1</artifactId>
+	<artifactId>COVID_JAVA</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-rest1</name>
+	<name>COVID_JAVA</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
-	</properties>
+<!--	<java.version>11</java.version> -->
+     <maven.compiler.source>11</maven.compiler.source>  
+    <maven.compiler.target>11</maven.compiler.target> 
+  </properties>
+   
+<dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13</version>
+      <scope>test</scope>
+    </dependency>
 
-	<dependencies>
+				<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>2.3.4.RELEASE</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.3.4.RELEASE</version>
 		</dependency>
+
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.3.4.RELEASE</version>
 		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<version>8.0.21</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.3.4.RELEASE</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -53,12 +71,12 @@
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.18.4</version>
+		    <version>1.18.12</version>
 		    <scope>provided</scope>
 		</dependency>		
-		
-		
-	</dependencies>
+
+  </dependencies>
+
 
 	<build>
 		<plugins>
