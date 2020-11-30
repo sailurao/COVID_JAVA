@@ -11,6 +11,8 @@ public interface EmpService {
     List<Employee> findAll();
     void delete(int id);
 
+   
+    
     Employee findOne(String userid);
 
     Employee findById(int emp_id);

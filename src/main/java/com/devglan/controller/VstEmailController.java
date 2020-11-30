@@ -1,10 +1,10 @@
 package com.devglan.controller;
 
 import com.devglan.model.ApiResponse;
-import com.devglan.model.Employee;
-import com.devglan.model.EmpDto;
-import com.devglan.service.EmpService;
-import com.devglan.service.impl.EmpServiceImpl;
+import com.devglan.model.Visitor;
+import com.devglan.model.VstDto;
+import com.devglan.service.VstService;
+import com.devglan.service.impl.VstServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,47 +39,47 @@ import java.net.InetAddress;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/employees/email")
-public class EmpEmailController {
+@RequestMapping("/visitors/email")
+public class VstEmailController {
 
-	private static final Logger logger = LoggerFactory.getLogger(EmpServiceImpl.class);
-	private Employee my_emp;
+	private static final Logger logger = LoggerFactory.getLogger(VstServiceImpl.class);
+	private Visitor my_vst;
 	
     @Autowired
-    private EmpService empService;
+    private VstService vstService;
 
     @PostMapping
-    public ApiResponse<Employee> saveEmployee(@RequestBody EmpDto emp){
-        return new ApiResponse<>(HttpStatus.OK.value(), "Employee saved successfully.",empService.save(emp));
+    public ApiResponse<Visitor> saveVisitor(@RequestBody VstDto vst){
+        return new ApiResponse<>(HttpStatus.OK.value(), "Visitor saved successfully.",vstService.save(vst));
     }
 
     @GetMapping
-    public ApiResponse<List<Employee>> listUser(){
-        return new ApiResponse<>(HttpStatus.OK.value(), "Employee list fetched successfully.",empService.findAll());
+    public ApiResponse<List<Visitor>> listUser(){
+        return new ApiResponse<>(HttpStatus.OK.value(), "Visitor list fetched successfully.",vstService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Employee> getOne(@PathVariable int id){
+    public ApiResponse<Visitor> getOne(@PathVariable int id){
     	try {
-    	  my_emp = empService.findById(id);
+    	  my_vst = vstService.findById(id);
     	sendmail();
     	logger.info("Email Sent Successfully1");
     	}
     	catch(Exception e) {
     		logger.info("Email Exception: {}",e);
     	}
-        return new ApiResponse<>(HttpStatus.OK.value(), "Employee fetched successfully.",my_emp);
+        return new ApiResponse<>(HttpStatus.OK.value(), "Visitor fetched successfully.",my_vst);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<EmpDto> update(@RequestBody EmpDto empDto) {
-        return new ApiResponse<>(HttpStatus.OK.value(), "Employee updated successfully.",empService.update(empDto));
+    public ApiResponse<VstDto> update(@RequestBody VstDto vstDto) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "Visitor updated successfully.",vstService.update(vstDto));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable int id) {
-    	empService.delete(id);
-        return new ApiResponse<>(HttpStatus.OK.value(), "Employee deleted successfully.", null);
+    	vstService.delete(id);
+        return new ApiResponse<>(HttpStatus.OK.value(), "Visitor deleted successfully.", null);
     }
 
     @RequestMapping(value = "/sendemail")
@@ -132,17 +132,17 @@ public class EmpEmailController {
     	      }
     	   });
     	   Message msg = new MimeMessage(session);
-    	   msg.setFrom(new InternetAddress(my_emp.getEmail(), false));
+    	   msg.setFrom(new InternetAddress(my_vst.getEmail(), false));
 
-    	   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(my_emp.getEmail()));
+    	   msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(my_vst.getEmail()));
     	   msg.setSubject("PDI COVID Questionnaire Link");
-//    	   String EMPLOYEE1_API_BASE_URL = " http://localhost:3000/new-tr/"; //used to fetch single employee record by user id
- //   	   String EMPLOYEE1_API_BASE_URL = " http://192.168.0.200:3000/new-tr/"; //used to fetch single employee record by user id
-//   	   String EMPLOYEE1_API_BASE_URL = " http://34.123.142.12:3000/new-tr/"; //used to fetch single employee record by user id
-   	       String EMPLOYEE1_API_BASE_URL = " http://" + ip_str+":3000/new-tr/"; //used to fetch single employee record by user id
+//    	   String EMPLOYEE1_API_BASE_URL = " http://localhost:3000/new-tr/"; //used to fetch single visitor record by user id
+ //   	   String EMPLOYEE1_API_BASE_URL = " http://192.168.0.200:3000/new-tr/"; //used to fetch single visitor record by user id
+//   	   String EMPLOYEE1_API_BASE_URL = " http://34.123.142.12:3000/new-tr/"; //used to fetch single visitor record by user id
+   	       String EMPLOYEE1_API_BASE_URL = " http://" + ip_str+":3000/new-vst-tr/"; //used to fetch single visitor record by user id
 
     	   String body_msg = "Please clik on the link";
-    	   body_msg +=  EMPLOYEE1_API_BASE_URL+ my_emp.getUserid();
+    	   body_msg +=  EMPLOYEE1_API_BASE_URL+ my_vst.getUserid();
     	   msg.setContent(body_msg, "text/html");
     	   msg.setSentDate(new Date());
 
