@@ -123,7 +123,7 @@ public class EmpEmailController {
     	   
     	    	   props.put("mail.smtp.starttls.enable", "false");
     	   props.put("mail.smtp.host", "mail.teampdi.com");
-    	   props.put("mail.smtp.port", "25"); 
+    	   props.put("mail.smtp.port", "587"); 
     	   
     	   Session session = Session.getInstance(props, new javax.mail.Authenticator() {
     	      protected PasswordAuthentication getPasswordAuthentication() {
