@@ -141,7 +141,7 @@ public class EmpEmailController {
 //   	   String EMPLOYEE1_API_BASE_URL = " http://34.123.142.12:3000/new-tr/"; //used to fetch single employee record by user id
    	       String EMPLOYEE1_API_BASE_URL = " http://" + ip_str+":3000/new-tr/"; //used to fetch single employee record by user id
 
-    	   String body_msg = "Please clik on the link";
+    	   String body_msg = "Please click on the link";
     	   body_msg +=  EMPLOYEE1_API_BASE_URL+ my_emp.getUserid();
     	   msg.setContent(body_msg, "text/html");
     	   msg.setSentDate(new Date());
