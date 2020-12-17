@@ -1,0 +1,11 @@
+//https://stackoverflow.com/questions/906402/how-to-import-an-existing-x-509-certificate-and-private-key-in-java-keystore-to
+
+
+Step1:
+---------
+openssl pkcs12 -export -in 35_239_124_98.crt -inkey key2.pem -out server.p12 -name my_alias -CAfile ca.crt -caname root
+
+
+step2:
+---------
+keytool -importkeystore -deststorepass protodesign1 -destkeypass protodesign1 -destkeystore server.keystore -srckeystore server.p12 -srcstoretype PKCS12 -srcstorepass protodesign1 -alias my_alias
